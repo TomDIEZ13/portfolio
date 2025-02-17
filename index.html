@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio tomdiez.fr</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #0a192f;
+            color: #8892b0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: rgba(100, 255, 218, 0.2);
+            color: #64ffda;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 25, 47, 0.95);
+            padding: 1rem 10%;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .name-logo {
+            color: #ccd6f6;
+            font-size: 1.3rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .name-logo:hover {
+            color: #8892b0;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #ccd6f6;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #64ffda;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 100px 10%;
+            position: relative;
+        }
+
+        .section-title {
+            color: #64ffda;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: -10px;
+            left: 0;
+            background: linear-gradient(90deg, #64ffda, transparent);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #64ffda;
+            bottom: -13.5px;
+            left: 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(100, 255, 218, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(100, 255, 218, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(100, 255, 218, 0);
+            }
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+
+        .feature-card {
+            background: rgba(17, 34, 64, 0.95);
+            padding: 2rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(100, 255, 218, 0.03), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7);
+        }
+
+        .feature-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .feature-card h3 {
+            color: #ccd6f6;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .feature-card h3::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #64ffda;
+            transition: width 0.3s ease;
+        }
+
+        .feature-card:hover h3::after {
+            width: 100%;
+        }
+
+        .competences-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .competence-card {
+            background: rgba(17, 34, 64, 0.95);
+            padding: 2rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .competence-card h3 {
+            color: #64ffda;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .competence-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .competence-left, .competence-right {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .competence-left h4, .competence-right h4 {
+            color: #ccd6f6;
+            margin-bottom: 0.5rem;
+        }
+
+        .competence-left ul, .competence-right ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .competence-left li, .competence-right li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .competence-left li:before, .competence-right li:before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: #64ffda;
+        }
+
+        .project-preview {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            margin: 0 auto;
+        }
+
+        .contact-card, .cv-card {
+            background: rgba(17, 34, 64, 0.95);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .btn-submit {
+            background: transparent;
+            color: #64ffda;
+            border: 2px solid #64ffda;
+            padding: 0.8rem 2rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            border-radius: 4px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-submit:hover {
+            background: rgba(100, 255, 218, 0.1);
+        }
+
+        @media (max-width: 1200px) {
+            .competence-content {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="canvas-container"></div>
+
+<nav>
+    <a href="#" class="name-logo">Tom DIEZ</a>
+    <ul>
+        <li><a href="#particularites">Particularités</a></li>
+        <li><a href="#projet-pro">Projet Pro</a></li>
+        <li><a href="#competences">Compétences</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<section id="particularites">
+    <h2 class="section-title">Particularités</h2>
+    <div class="grid-container">
+        <div class="feature-card">
+            <h3>Investissement</h3>
+            <p>Sérieux investissement dans mes études accompagné d'un apprentissage autodidacte constant et d'une veille technologique active.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Raisonnement</h3>
+            <p>Pensée critique et logique mathématique affinées lors de mon année en Maths Sup, me permettant d'aborder les problèmes complexes de manière structurée.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Compétences</h3>
+            <p>Ma formation en BUT Informatique m'a apporté de solides compétences techniques, renforcées par une pratique régulière et des projets personnels enrichissants.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Déterminé</h3>
+            <p>Passionné et déterminé à exceller dans le domaine informatique, je m'investis pleinement dans chaque projet avec rigueur et enthousiasme.</p>
+        </div>
+    </div>
+</section>
+
+<section id="projet-pro">
+    <h2 class="section-title">Projet Professionnel</h2>
+    <div class="grid-container">
+        <div class="feature-card">
+            <h3>Exploration et Découverte</h3>
+            <p>Actuellement en BUT3 à l'IUT d'Arles dans le parcours « Réalisation d'applications : conception, développement, validation », je poursuis mes études avec une ouverture d’esprit et une curiosité continue.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Cibler Mes Intérêts</h3>
+            <p>Certains domaines comme la modélisation mathématique et l'algorithmie se démarquent particulièrement, nourrissant mon envie d'approfondir mes compétences.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Affiner Mon Chemin</h3>
+            <p>En poursuivant mes études, je m'engage plus profondément dans les domaines qui m'ont captivé.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Vers un Futur Ciblé</h3>
+            <p>Cette focalisation sur mes domaines de prédilection me permettra de contribuer de manière significative et innovante à ma future carrière.</p>
+        </div>
+    </div>
+</section>
+
+<section id="competences">
+    <h2 class="section-title">Compétences</h2>
+    <div class="competences-container">
+        <div class="competence-card">
+            <h3>Compétence 1 : Réaliser un développement d'application</h3>
+            <div class="competence-content">
+                <div class="competence-left">
+                    <h4>Objet du travail</h4>
+                    <p>Développement d'une application pour smartphone à destination des parents d'élèves de l'école maternelle « Le petit Prince ».</p>
+
+                    <h4>Méthodologie</h4>
+                    <ul>
+                        <li>Analyse approfondie des besoins utilisateurs et spécifications techniques</li>
+                        <li>Conception d'une architecture modulaire basée sur les composants</li>
+                        <li>Développement d'une interface intuitive et responsive</li>
+                        <li>Implémentation des fonctionnalités essentielles et avancées</li>
+                    </ul>
+                </div>
+                <div class="competence-center" style="height: 621px; width: 300px; position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);">
+                    <video id="video_comp1" controls style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 110%; height: 110%; object-fit: cover;" onloadedmetadata="this.currentTime = 3">
+                        <source src="./video_c1.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                </div>
+                <div class="competence-right">
+                    <h4>Montée en compétences</h4>
+                    <ul>
+                        <li>Maîtrise approfondie du framework Angular</li>
+                        <li>Expertise dans le développement mobile avec Ionic</li>
+                        <li>Utilisation avancée d'Android Studio</li>
+                        <li>Déploiement d'applications mobiles</li>
+                        <li>Renforcement des concepts de composants et vues depuis React</li>
+                    </ul>
+
+                    <h4>Difficultés surmontées</h4>
+                    <ul>
+                        <li>Apprentissage intensif des nouvelles technologies</li>
+                        <li>Gestion des spécificités du déploiement mobile</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="competence-card">
+            <h3>Compétence 2 : Optimiser des applications</h3>
+            <div class="competence-content">
+                <div class="competence-left">
+                    <h4>Objet du travail</h4>
+                    <p>Optimisation axée sur la sécurité d'une application existante, avec focus sur la protection des données et la performance.</p>
+
+                    <h4>Méthodologie</h4>
+                    <ul>
+                        <li>Analyse approfondie des vulnérabilités critiques</li>
+                        <li>Implémentation de mesures de sécurité robustes</li>
+                        <li>Tests de pénétration et correction des failles</li>
+                    </ul>
+                </div>
+                <div class="competence-center">
+                    <img src="./img_c2_1.png" alt="Code sécurité" class="project-preview"/>
+                    <img src="./img_c2_2.png" alt="Code sécurité" class="project-preview"/>
+                </div>
+                <div class="competence-right">
+                    <h4>Montée en compétences</h4>
+                    <ul>
+                        <li>Maîtrise du JavaScript côté serveur</li>
+                        <li>Expertise en sécurité multicouche: BDD, Réseau, Code</li>
+                        <li>Implémentation de bonnes pratiques de sécurité</li>
+                    </ul>
+
+                    <h4>Difficultés surmontées</h4>
+                    <ul>
+                        <li>Maîtrise des concepts avancés de sécurité</li>
+                        <li>Adaptation aux meilleures pratiques évolutives</li>
+                        <li>Optimisation des performances post-sécurisation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="competence-card">
+            <h3>Compétence 3 : Administrer des systèmes informatiques communicants complexes</h3>
+            <div class="competence-content">
+                <div class="competence-left">
+                    <h4>Objet du travail</h4>
+                    <p>Développement d'une application client/serveur collaborative pour l'édition de documents en temps réel</p>
+
+                    <h4>Méthodologie</h4>
+                    <ul>
+                        <li>Analyse des besoins collaboratifs</li>
+                        <li>Design d'architecture distribuée</li>
+                        <li>Implémentation de synchronisation en temps réel</li>
+                        <li>Tests de charge et optimisation</li>
+                    </ul>
+                </div>
+                <div class="competence-center">
+                    <img src="./img_c3_1.png" alt="Terminal" class="project-preview"/>
+                    <img src="./img_c3_2.png" alt="Terminal" class="project-preview"/>
+                    <img src="./img_c3_3.png" alt="Terminal" class="project-preview"/>
+                </div>
+                <div class="competence-right">
+                    <h4>Montée en compétences</h4>
+                    <ul>
+                        <li>Expertise avancée en C++</li>
+                        <li>Maîtrise de la programmation concurrente</li>
+                        <li>Gestion efficace des ressources système</li>
+                        <li>Optimisation des performances réseau</li>
+                    </ul>
+
+                    <h4>Difficultés surmontées</h4>
+                    <ul>
+                        <li>Résolution des conflits de concurrence</li>
+                        <li>Optimisation des accès fichiers multiples</li>
+                        <li>Gestion de la latence réseau</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="competence-card">
+            <h3>Compétence 4 : Gérer des données de l'information</h3>
+            <div class="competence-content">
+                <div class="competence-left">
+                    <h4>Objet du travail</h4>
+                    <p>Conception et développement d'une application client riche intégrant des API externes avec gestion avancée des données</p>
+
+                    <h4>Méthodologie</h4>
+                    <ul>
+                        <li>Architecture orientée services</li>
+                        <li>Implémentation POO avancée</li>
+                        <li>Configuration Webpack optimisée</li>
+                        <li>Gestion de cache intelligente</li>
+                    </ul>
+                </div>
+                <div class="competence-center">
+                    <img src="./img_c4_1.png" alt="Terminal" class="project-preview"/>
+                    <img src="./img_c4_2.png" alt="Terminal" class="project-preview"/>
+                </div>
+                <div class="competence-right">
+                    <h4>Montée en compétences</h4>
+                    <ul>
+                        <li>Maîtrise de Webpack et ses optimisations</li>
+                        <li>Intégration avancée d'APIs</li>
+                        <li>POO JavaScript approfondie</li>
+                        <li>Gestion efficace des états applicatifs</li>
+                    </ul>
+
+                    <h4>Difficultés surmontées</h4>
+                    <ul>
+                        <li>Configuration Webpack complexe</li>
+                        <li>Gestion des dépendances circulaires</li>
+                        <li>Optimisation des requêtes API</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="competence-card">
+            <h3>Compétence 5 : Conduire un projet</h3>
+            <div class="competence-content">
+                <div class="competence-left">
+                    <h4>Objet du travail</h4>
+                    <p>Développement d'une plateforme e-commerce "BookStore" avec Laravel, intégrant des fonctionnalités avancées de gestion</p>
+
+                    <h4>Méthodologie</h4>
+                    <ul>
+                        <li>Gestion de projet Agile/Scrum</li>
+                        <li>Architecture MVC optimisée</li>
+                        <li>Implémentation CRUD sécurisée</li>
+                        <li>Tests automatisés complets</li>
+                    </ul>
+                </div>
+                <div class="competence-center">
+                    <img src="./img_c5_1.png" alt="Terminal" class="project-preview"/>
+                    <img src="./img_c5_2.png" alt="Terminal" class="project-preview"/>
+                </div>
+                <div class="competence-right">
+                    <h4>Montée en compétences</h4>
+                    <ul>
+                        <li>Expertise Laravel et ses composants</li>
+                        <li>Maîtrise ORM Eloquent</li>
+                        <li>Sécurité avec Breeze</li>
+                        <li>Tests unitaires et d'intégration</li>
+                    </ul>
+
+                    <h4>Difficultés surmontées</h4>
+                    <ul>
+                        <li>Implémentation ORM complexe</li>
+                        <li>Gestion des routes avancées</li>
+                        <li>Compatibilité multi-versions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="competence-card">
+            <h3>Compétence 6 : Collaborer au sein d'une équipe informatique</h3>
+            <div class="competence-content">
+                <div class="competence-left">
+                    <h4>Objet du travail</h4>
+                    <p>Développement itératif d'une application en équipe, avec focus sur la collaboration et la qualité du code</p>
+
+                    <h4>Méthodologie</h4>
+                    <ul>
+                        <li>Organisation de réunions efficaces</li>
+                        <li>Utilisation avancée de Miro</li>
+                        <li>Gestion de backlog produit</li>
+                        <li>Revues de code régulières</li>
+                    </ul>
+                </div>
+                <div class="competence-center">
+                    <img src="./img_c6.png" alt="Terminal" class="project-preview"/>
+                </div>
+                <div class="competence-right">
+                    <h4>Montée en compétences</h4>
+                    <ul>
+                        <li>Maîtrise des méthodes Agiles</li>
+                        <li>Expertise Git avancée</li>
+                        <li>Communication technique efficace</li>
+                        <li>Gestion de conflits constructive</li>
+                    </ul>
+
+                    <h4>Difficultés surmontées</h4>
+                    <ul>
+                        <li>Optimisation de la communication</li>
+                        <li>Équilibrage des charges de travail</li>
+                        <li>Gestion des divergences techniques</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <h2 class="section-title">Contact & CV</h2>
+    <div class="contact-info">
+        <div class="contact-card">
+            <h3 style="color: #ccd6f6; margin-bottom: 1.5rem;">Contact</h3>
+            <a href="mailto:tdiez@gmail.com" style="color: #64ffda; text-decoration: none; font-size: 1.2rem;">
+                tdiez@gmail.com
+            </a>
+        </div>
+        <div class="cv-card">
+            <h3 style="color: #ccd6f6; margin-bottom: 1.5rem;">CV</h3>
+            <p style="margin-bottom: 1.5rem;">Téléchargez mon CV pour plus de détails sur mon parcours et mes compétences.</p>
+            <a href="./CV_Tom_DIEZ.pdf" class="btn-submit" style="display: inline-block; text-decoration: none;">
+                Télécharger CV
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x000000, 0);
+    document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesCount = 5000;
+    const posArray = new Float32Array(particlesCount * 3);
+
+    for(let i = 0; i < particlesCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 5;
+    }
+
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    const particlesMaterial = new THREE.PointsMaterial({
+        size: 0.005,
+        color: 0x64ffda
+    });
+
+    const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particlesMesh);
+    camera.position.z = 2;
+
+    function animate() {
+        requestAnimationFrame(animate);
+        particlesMesh.rotation.x += 0.0003;
+        particlesMesh.rotation.y += 0.0005;
+        renderer.render(scene, camera);
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    document.addEventListener('mousemove', (event) => {
+        const x = (event.clientX / window.innerWidth) * 2 - 1;
+        const y = -(event.clientY / window.innerHeight) * 2 + 1;
+        particlesMesh.rotation.x += y * 0.0001;
+        particlesMesh.rotation.y += x * 0.0001;
+    });
+</script>
+</body>
+</html>
