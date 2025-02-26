@@ -186,6 +186,30 @@
             width: 100%;
         }
 
+        /* Onglets pour séparer BUT3 / BUT2 */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            gap: 2rem;
+        }
+        .tab-link {
+            background: none;
+            border: none;
+            color: #64ffda;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: border 0.3s;
+        }
+        .tab-link.active {
+            border-bottom: 2px solid #64ffda;
+        }
+        .tab-content {
+            display: block;
+        }
+
         .competences-container {
             display: flex;
             flex-direction: column;
@@ -277,6 +301,7 @@
             background: rgba(100, 255, 218, 0.1);
         }
 
+        /* Responsive Styles pour tablettes et mobiles */
         @media (max-width: 1200px) {
             .competence-content {
                 grid-template-columns: 1fr;
@@ -287,6 +312,43 @@
             }
             .section-title {
                 font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            nav {
+                padding: 1rem 5%;
+            }
+            section {
+                padding: 80px 5%;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            section {
+                padding: 60px 5%;
+            }
+            .competence-card {
+                padding: 1rem;
+            }
+            .competence-center {
+                width: 100% !important;
+                height: auto !important;
+            }
+            video {
+                width: 100% !important;
+                height: auto !important;
             }
         }
     </style>
@@ -311,17 +373,14 @@
             <h3>Investissement</h3>
             <p>Sérieux investissement dans mes études accompagné d'un apprentissage autodidacte constant et d'une veille technologique active.</p>
         </div>
-
         <div class="feature-card">
             <h3>Raisonnement</h3>
             <p>Pensée critique et logique mathématique affinées lors de mon année en Maths Sup, me permettant d'aborder les problèmes complexes de manière structurée.</p>
         </div>
-
         <div class="feature-card">
             <h3>Compétences</h3>
             <p>Ma formation en BUT Informatique m'a apporté de solides compétences techniques, renforcées par une pratique régulière et des projets personnels enrichissants.</p>
         </div>
-
         <div class="feature-card">
             <h3>Déterminé</h3>
             <p>Passionné et déterminé à exceller dans le domaine informatique, je m'investis pleinement dans chaque projet avec rigueur et enthousiasme.</p>
@@ -336,17 +395,14 @@
             <h3>Exploration et Découverte</h3>
             <p>Actuellement en BUT3 à l'IUT d'Arles dans le parcours « Réalisation d'applications : conception, développement, validation », je poursuis mes études avec une ouverture d’esprit et une curiosité continue.</p>
         </div>
-
         <div class="feature-card">
             <h3>Cibler Mes Intérêts</h3>
             <p>Certains domaines comme la modélisation mathématique et l'algorithmie se démarquent particulièrement, nourrissant mon envie d'approfondir mes compétences.</p>
         </div>
-
         <div class="feature-card">
             <h3>Affiner Mon Chemin</h3>
             <p>En poursuivant mes études, je m'engage plus profondément dans les domaines qui m'ont captivé.</p>
         </div>
-
         <div class="feature-card">
             <h3>Vers un Futur Ciblé</h3>
             <p>Cette focalisation sur mes domaines de prédilection me permettra de contribuer de manière significative et innovante à ma future carrière.</p>
@@ -354,233 +410,389 @@
     </div>
 </section>
 
+<!-- Section Compétences avec onglets -->
 <section id="competences">
     <h2 class="section-title">Compétences</h2>
-    <div class="competences-container">
-        <div class="competence-card">
-            <h3>Compétence 1 : Réaliser un développement d'application</h3>
-            <div class="competence-content">
-                <div class="competence-left">
-                    <h4>Objet du travail</h4>
-                    <p>Développement d'une application pour smartphone à destination des parents d'élèves de l'école maternelle « Le petit Prince ».</p>
+    <div class="tabs">
+        <button class="tab-link active" data-tab="but3-content">BUT3</button>
+        <button class="tab-link" data-tab="but2-content">BUT2</button>
+    </div>
+    <!-- Contenu BUT3 -->
+    <div id="but3-content" class="tab-content">
+        <div class="competences-container">
+            <div class="competence-card">
+                <h3>Compétence 1 : Réaliser un développement d’application</h3>
+                <div class="competence-content">
+                    <div class="competence-left">
+                        <h4>Objet du travail</h4>
+                        <p>
+                            Développement de l'application de paiement en ligne "Easy Pay" en Angular, avec un backend reposant sur une API REST complète. Ce projet intègre plusieurs technologies avancées : Three.js pour des animations interactives, blockchain pour sécuriser les transactions, intégration de Stripe pour les paiements et reconnaissance faciale pour renforcer la sécurité.
+                        </p>
+                        <h4>Méthodologie</h4>
+                        <ul>
+                            <li>Analyse des besoins et rédaction des spécifications techniques</li>
+                            <li>Conception d'une architecture modulaire (DAO, services, controllers) facilitant la maintenance</li>
+                            <li>Intégration d'animations interactives avec Three.js</li>
+                            <li>Mise en place d'un système de paiement sécurisé via Stripe</li>
+                            <li>Implémentation de la reconnaissance faciale pour l'authentification</li>
+                        </ul>
+                    </div>
+                    <div class="video-container">
+                        <video id="video_comp1_but3" controls>
+                            <source src="./resources/video2.mp4" type="video/mp4">
+                            Votre navigateur ne supporte pas la lecture de vidéos.
+                        </video>
+                    </div>
 
-                    <h4>Méthodologie</h4>
-                    <ul>
-                        <li>Analyse approfondie des besoins utilisateurs et spécifications techniques</li>
-                        <li>Conception d'une architecture modulaire basée sur les composants</li>
-                        <li>Développement d'une interface intuitive et responsive</li>
-                        <li>Implémentation des fonctionnalités essentielles et avancées</li>
-                    </ul>
-                </div>
-                <div class="competence-center" style="height: 621px; width: 300px; position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);">
-                    <video id="video_comp1" controls style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 110%; height: 110%; object-fit: cover;" onloadedmetadata="this.currentTime = 3">
-                        <source src="./resources/video_c1.mp4" type="video/mp4">
-                        Votre navigateur ne supporte pas la lecture de vidéos.
-                    </video>
-                </div>
-                <div class="competence-right">
-                    <h4>Montée en compétences</h4>
-                    <ul>
-                        <li>Maîtrise approfondie du framework Angular</li>
-                        <li>Expertise dans le développement mobile avec Ionic</li>
-                        <li>Utilisation avancée d'Android Studio</li>
-                        <li>Déploiement d'applications mobiles</li>
-                        <li>Renforcement des concepts de composants et vues depuis React</li>
-                    </ul>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            let video = document.getElementById("video_comp1_but3");
 
-                    <h4>Difficultés surmontées</h4>
-                    <ul>
-                        <li>Apprentissage intensif des nouvelles technologies</li>
-                        <li>Gestion des spécificités du déploiement mobile</li>
-                    </ul>
+                            function setSpeed(speed) {
+                                // Vérifier si un intervalle existe déjà et le supprimer
+                                if (video.dataset.speedInterval) {
+                                    clearInterval(video.dataset.speedInterval);
+                                }
+
+                                // Imposer la vitesse de lecture en continu
+                                let interval = setInterval(() => {
+                                    video.playbackRate = speed;
+                                }, 100); // Réapplique la vitesse toutes les 100ms
+
+                                // Stocker l'ID de l'intervalle pour pouvoir l'arrêter plus tard
+                                video.dataset.speedInterval = interval;
+                            }
+
+                            function resetSpeed() {
+                                if (video.dataset.speedInterval) {
+                                    clearInterval(video.dataset.speedInterval);
+                                    delete video.dataset.speedInterval;
+                                }
+                                video.playbackRate = 1; // Remet la vitesse normale
+                            }
+
+                            // Appliquer automatiquement la vitesse x10 lorsque la vidéo est prête
+                            video.addEventListener("loadedmetadata", function () {
+                                setSpeed(3,5);
+                            });
+
+                        });
+                    </script>
+
+                    <script>
+                        const video = document.getElementById('video_comp1_but3');
+
+                        // Style par défaut : cover
+                        video.style.objectFit = 'cover';
+                        video.style.width = '100%';
+                        video.style.height = '100%';
+
+                        // Écouteur d’événement pour le changement de mode plein écran
+                        function handleFullscreenChange() {
+                            // Si la vidéo est en plein écran
+                            if (document.fullscreenElement === video ||
+                                document.webkitFullscreenElement === video ||
+                                document.mozFullScreenElement === video ||
+                                document.msFullscreenElement === video) {
+                                video.style.objectFit = 'contain';
+                            } else {
+                                // Retour à cover en sortie du plein écran
+                                video.style.objectFit = 'cover';
+                            }
+                        }
+
+                        // Compatibilité multi-navigateurs
+                        video.addEventListener('fullscreenchange', handleFullscreenChange);
+                        video.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+                        video.addEventListener('mozfullscreenchange', handleFullscreenChange);
+                        video.addEventListener('MSFullscreenChange', handleFullscreenChange);
+                    </script>
+
+                    <style>
+                        .video-container {
+                            width: 300px;
+                            height: 621px;
+                            position: relative;
+                            overflow: hidden;
+                            border-radius: 12px;
+                            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+                        }
+
+                        .video-container video {
+                            /* Positionnement de la vidéo au centre du conteneur */
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                        }
+                    </style>
+                    <div class="competence-right">
+                        <h4>Montée en compétences</h4>
+                        <ul>
+                            <li>Maîtrise avancée du framework Angular et des API RESTful</li>
+                            <li>Approfondissement des techniques d'intégration de solutions de paiement (Stripe)</li>
+                            <li>Découverte et mise en pratique de la blockchain et de la reconnaissance faciale</li>
+                            <li>Gestion de l'interopérabilité entre plusieurs technologies</li>
+                        </ul>
+                        <h4>Difficultés surmontées</h4>
+                        <ul>
+                            <li>Intégration de multiples technologies dans un seul projet</li>
+                            <li>Optimisation de la communication entre le frontend et le backend</li>
+                            <li>Gestion des enjeux de sécurité liés aux transactions en ligne</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="competence-card">
+                <h3>Compétence 2 : Optimiser des applications</h3>
+                <div class="competence-content">
+                    <div class="competence-left">
+                        <h4>Objet du travail</h4>
+                        <p>
+                            Optimisation du backend d'une application développée lors de mon alternance, initialement confrontée à des problèmes de performance et de qualité de code.
+                        </p>
+                        <h4>Méthodologie</h4>
+                        <ul>
+                            <li>Audit du code existant (vieux de 30 ans) pour identifier les goulets d'étranglement</li>
+                            <li>Application des principes SOLID et des bonnes pratiques (DAO, DTO, services)</li>
+                            <li>Refactoring pour réduire les requêtes lourdes et améliorer la maintenabilité</li>
+                            <li>Mise en place de tests garantissant la stabilité et la performance</li>
+                        </ul>
+                    </div>
+                    <div class="competence-center">
+                        <img style="height: 400px; width: 300px;" src="./resources/img_c1but3_1.png" alt="Terminal" class="project-preview"/>
+                        <img style="height: 300px; width: 300px;" src="./resources/img_c1but3_2.png" alt="Terminal" class="project-preview"/>
+                    </div>
+                    <div class="competence-right">
+                        <h4>Montée en compétences</h4>
+                        <ul>
+                            <li>Renforcement des compétences en optimisation et refactoring de code backend</li>
+                            <li>Application concrète des principes SOLID et des méthodes de structuration de code</li>
+                            <li>Amélioration de l'efficacité des requêtes et des performances globales</li>
+                        </ul>
+                        <h4>Difficultés surmontées</h4>
+                        <ul>
+                            <li>Transformation d'un code mal conçu en une architecture moderne et optimisée</li>
+                            <li>Réduction des temps de réponse par l'optimisation des accès aux données</li>
+                            <li>Mise en place de solutions de sécurité robustes sans compromettre les performances</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="competence-card">
-            <h3>Compétence 2 : Optimiser des applications</h3>
-            <div class="competence-content">
-                <div class="competence-left">
-                    <h4>Objet du travail</h4>
-                    <p>Optimisation axée sur la sécurité d'une application existante, avec focus sur la protection des données et la performance.</p>
-
-                    <h4>Méthodologie</h4>
-                    <ul>
-                        <li>Analyse approfondie des vulnérabilités critiques</li>
-                        <li>Implémentation de mesures de sécurité robustes</li>
-                        <li>Tests de pénétration et correction des failles</li>
-                    </ul>
-                </div>
-                <div class="competence-center">
-                    <img src="./resources/img_c2_1.png" alt="Code sécurité" class="project-preview"/>
-                    <img src="./resources/img_c2_2.png" alt="Code sécurité" class="project-preview"/>
-                </div>
-                <div class="competence-right">
-                    <h4>Montée en compétences</h4>
-                    <ul>
-                        <li>Maîtrise du JavaScript côté serveur</li>
-                        <li>Expertise en sécurité multicouche: BDD, Réseau, Code</li>
-                        <li>Implémentation de bonnes pratiques de sécurité</li>
-                    </ul>
-
-                    <h4>Difficultés surmontées</h4>
-                    <ul>
-                        <li>Maîtrise des concepts avancés de sécurité</li>
-                        <li>Adaptation aux meilleures pratiques évolutives</li>
-                        <li>Optimisation des performances post-sécurisation</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="competence-card">
-            <h3>Compétence 3 : Administrer des systèmes informatiques communicants complexes</h3>
-            <div class="competence-content">
-                <div class="competence-left">
-                    <h4>Objet du travail</h4>
-                    <p>Développement d'une application client/serveur collaborative pour l'édition de documents en temps réel</p>
-
-                    <h4>Méthodologie</h4>
-                    <ul>
-                        <li>Analyse des besoins collaboratifs</li>
-                        <li>Design d'architecture distribuée</li>
-                        <li>Implémentation de synchronisation en temps réel</li>
-                        <li>Tests de charge et optimisation</li>
-                    </ul>
-                </div>
-                <div class="competence-center">
-                    <img src="./resources/img_c3_1.png" alt="Terminal" class="project-preview"/>
-                    <img src="./resources/img_c3_2.png" alt="Terminal" class="project-preview"/>
-                    <img src="./resources/img_c3_3.png" alt="Terminal" class="project-preview"/>
-                </div>
-                <div class="competence-right">
-                    <h4>Montée en compétences</h4>
-                    <ul>
-                        <li>Expertise avancée en C++</li>
-                        <li>Maîtrise de la programmation concurrente</li>
-                        <li>Gestion efficace des ressources système</li>
-                        <li>Optimisation des performances réseau</li>
-                    </ul>
-
-                    <h4>Difficultés surmontées</h4>
-                    <ul>
-                        <li>Résolution des conflits de concurrence</li>
-                        <li>Optimisation des accès fichiers multiples</li>
-                        <li>Gestion de la latence réseau</li>
-                    </ul>
+    <!-- Contenu BUT2 -->
+    <div id="but2-content" class="tab-content" style="display: none;">
+        <div class="competences-container">
+            <div class="competence-card">
+                <h3>Compétence 1 : Réaliser un développement d'application</h3>
+                <div class="competence-content">
+                    <div class="competence-left">
+                        <h4>Objet du travail</h4>
+                        <p>Développement d'une application pour smartphone à destination des parents d'élèves de l'école maternelle « Le petit Prince ».</p>
+                        <h4>Méthodologie</h4>
+                        <ul>
+                            <li>Analyse approfondie des besoins utilisateurs et spécifications techniques</li>
+                            <li>Conception d'une architecture modulaire basée sur les composants</li>
+                            <li>Développement d'une interface intuitive et responsive</li>
+                            <li>Implémentation des fonctionnalités essentielles et avancées</li>
+                        </ul>
+                    </div>
+                    <div class="competence-center" style="height: 621px; width: 300px; position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);">
+                        <video id="video_comp1" controls style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 110%; height: 110%; object-fit: cover;" onloadedmetadata="this.currentTime = 3">
+                            <source src="./resources/video_c1.mp4" type="video/mp4">
+                            Votre navigateur ne supporte pas la lecture de vidéos.
+                        </video>
+                    </div>
+                    <div class="competence-right">
+                        <h4>Montée en compétences</h4>
+                        <ul>
+                            <li>Maîtrise approfondie du framework Angular</li>
+                            <li>Expertise dans le développement mobile avec Ionic</li>
+                            <li>Utilisation avancée d'Android Studio</li>
+                            <li>Déploiement d'applications mobiles</li>
+                            <li>Renforcement des concepts de composants et vues depuis React</li>
+                        </ul>
+                        <h4>Difficultés surmontées</h4>
+                        <ul>
+                            <li>Apprentissage intensif des nouvelles technologies</li>
+                            <li>Gestion des spécificités du déploiement mobile</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="competence-card">
-            <h3>Compétence 4 : Gérer des données de l'information</h3>
-            <div class="competence-content">
-                <div class="competence-left">
-                    <h4>Objet du travail</h4>
-                    <p>Conception et développement d'une application client riche intégrant des API externes avec gestion avancée des données</p>
-
-                    <h4>Méthodologie</h4>
-                    <ul>
-                        <li>Architecture orientée services</li>
-                        <li>Implémentation POO avancée</li>
-                        <li>Configuration Webpack optimisée</li>
-                        <li>Gestion de cache intelligente</li>
-                    </ul>
-                </div>
-                <div class="competence-center">
-                    <img src="./resources/img_c4_1.png" alt="Terminal" class="project-preview"/>
-                    <img src="./resources/img_c4_2.png" alt="Terminal" class="project-preview"/>
-                </div>
-                <div class="competence-right">
-                    <h4>Montée en compétences</h4>
-                    <ul>
-                        <li>Maîtrise de Webpack et ses optimisations</li>
-                        <li>Intégration avancée d'APIs</li>
-                        <li>POO JavaScript approfondie</li>
-                        <li>Gestion efficace des états applicatifs</li>
-                    </ul>
-
-                    <h4>Difficultés surmontées</h4>
-                    <ul>
-                        <li>Configuration Webpack complexe</li>
-                        <li>Gestion des dépendances circulaires</li>
-                        <li>Optimisation des requêtes API</li>
-                    </ul>
+            <div class="competence-card">
+                <h3>Compétence 2 : Optimiser des applications</h3>
+                <div class="competence-content">
+                    <div class="competence-left">
+                        <h4>Objet du travail</h4>
+                        <p>Optimisation axée sur la sécurité d'une application existante, avec focus sur la protection des données et la performance.</p>
+                        <h4>Méthodologie</h4>
+                        <ul>
+                            <li>Analyse approfondie des vulnérabilités critiques</li>
+                            <li>Implémentation de mesures de sécurité robustes</li>
+                            <li>Tests de pénétration et correction des failles</li>
+                        </ul>
+                    </div>
+                    <div class="competence-center">
+                        <img src="./resources/img_c2_1.png" alt="Code sécurité" class="project-preview"/>
+                        <img src="./resources/img_c2_2.png" alt="Code sécurité" class="project-preview"/>
+                    </div>
+                    <div class="competence-right">
+                        <h4>Montée en compétences</h4>
+                        <ul>
+                            <li>Maîtrise du JavaScript côté serveur</li>
+                            <li>Expertise en sécurité multicouche: BDD, Réseau, Code</li>
+                            <li>Implémentation de bonnes pratiques de sécurité</li>
+                        </ul>
+                        <h4>Difficultés surmontées</h4>
+                        <ul>
+                            <li>Maîtrise des concepts avancés de sécurité</li>
+                            <li>Adaptation aux meilleures pratiques évolutives</li>
+                            <li>Optimisation des performances post-sécurisation</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="competence-card">
-            <h3>Compétence 5 : Conduire un projet</h3>
-            <div class="competence-content">
-                <div class="competence-left">
-                    <h4>Objet du travail</h4>
-                    <p>Développement d'une plateforme e-commerce "BookStore" avec Laravel, intégrant des fonctionnalités avancées de gestion</p>
-
-                    <h4>Méthodologie</h4>
-                    <ul>
-                        <li>Gestion de projet Agile/Scrum</li>
-                        <li>Architecture MVC optimisée</li>
-                        <li>Implémentation CRUD sécurisée</li>
-                        <li>Tests automatisés complets</li>
-                    </ul>
-                </div>
-                <div class="competence-center">
-                    <img src="./resources/img_c5_1.png" alt="Terminal" class="project-preview"/>
-                    <img src="./resources/img_c5_2.png" alt="Terminal" class="project-preview"/>
-                </div>
-                <div class="competence-right">
-                    <h4>Montée en compétences</h4>
-                    <ul>
-                        <li>Expertise Laravel et ses composants</li>
-                        <li>Maîtrise ORM Eloquent</li>
-                        <li>Sécurité avec Breeze</li>
-                        <li>Tests unitaires et d'intégration</li>
-                    </ul>
-
-                    <h4>Difficultés surmontées</h4>
-                    <ul>
-                        <li>Implémentation ORM complexe</li>
-                        <li>Gestion des routes avancées</li>
-                        <li>Compatibilité multi-versions</li>
-                    </ul>
+            <div class="competence-card">
+                <h3>Compétence 3 : Administrer des systèmes informatiques communicants complexes</h3>
+                <div class="competence-content">
+                    <div class="competence-left">
+                        <h4>Objet du travail</h4>
+                        <p>Développement d'une application client/serveur collaborative pour l'édition de documents en temps réel</p>
+                        <h4>Méthodologie</h4>
+                        <ul>
+                            <li>Analyse des besoins collaboratifs</li>
+                            <li>Design d'architecture distribuée</li>
+                            <li>Implémentation de synchronisation en temps réel</li>
+                            <li>Tests de charge et optimisation</li>
+                        </ul>
+                    </div>
+                    <div class="competence-center">
+                        <img src="./resources/img_c3_1.png" alt="Terminal" class="project-preview"/>
+                        <img src="./resources/img_c3_2.png" alt="Terminal" class="project-preview"/>
+                        <img src="./resources/img_c3_3.png" alt="Terminal" class="project-preview"/>
+                    </div>
+                    <div class="competence-right">
+                        <h4>Montée en compétences</h4>
+                        <ul>
+                            <li>Expertise avancée en C++</li>
+                            <li>Maîtrise de la programmation concurrente</li>
+                            <li>Gestion efficace des ressources système</li>
+                            <li>Optimisation des performances réseau</li>
+                        </ul>
+                        <h4>Difficultés surmontées</h4>
+                        <ul>
+                            <li>Résolution des conflits de concurrence</li>
+                            <li>Optimisation des accès fichiers multiples</li>
+                            <li>Gestion de la latence réseau</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="competence-card">
-            <h3>Compétence 6 : Collaborer au sein d'une équipe informatique</h3>
-            <div class="competence-content">
-                <div class="competence-left">
-                    <h4>Objet du travail</h4>
-                    <p>Développement itératif d'une application en équipe, avec focus sur la collaboration et la qualité du code</p>
-
-                    <h4>Méthodologie</h4>
-                    <ul>
-                        <li>Organisation de réunions efficaces</li>
-                        <li>Utilisation avancée de Miro</li>
-                        <li>Gestion de backlog produit</li>
-                        <li>Revues de code régulières</li>
-                    </ul>
+            <div class="competence-card">
+                <h3>Compétence 4 : Gérer des données de l'information</h3>
+                <div class="competence-content">
+                    <div class="competence-left">
+                        <h4>Objet du travail</h4>
+                        <p>Conception et développement d'une application client riche intégrant des API externes avec gestion avancée des données</p>
+                        <h4>Méthodologie</h4>
+                        <ul>
+                            <li>Architecture orientée services</li>
+                            <li>Implémentation POO avancée</li>
+                            <li>Configuration Webpack optimisée</li>
+                            <li>Gestion de cache intelligente</li>
+                        </ul>
+                    </div>
+                    <div class="competence-center">
+                        <img src="./resources/img_c4_1.png" alt="Terminal" class="project-preview"/>
+                        <img src="./resources/img_c4_2.png" alt="Terminal" class="project-preview"/>
+                    </div>
+                    <div class="competence-right">
+                        <h4>Montée en compétences</h4>
+                        <ul>
+                            <li>Maîtrise de Webpack et ses optimisations</li>
+                            <li>Intégration avancée d'APIs</li>
+                            <li>POO JavaScript approfondie</li>
+                            <li>Gestion efficace des états applicatifs</li>
+                        </ul>
+                        <h4>Difficultés surmontées</h4>
+                        <ul>
+                            <li>Configuration Webpack complexe</li>
+                            <li>Gestion des dépendances circulaires</li>
+                            <li>Optimisation des requêtes API</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="competence-center">
-                    <img src="./resources/img_c6.png" alt="Terminal" class="project-preview"/>
+            </div>
+            <div class="competence-card">
+                <h3>Compétence 5 : Conduire un projet</h3>
+                <div class="competence-content">
+                    <div class="competence-left">
+                        <h4>Objet du travail</h4>
+                        <p>Développement d'une plateforme e-commerce "BookStore" avec Laravel, intégrant des fonctionnalités avancées de gestion</p>
+                        <h4>Méthodologie</h4>
+                        <ul>
+                            <li>Gestion de projet Agile/Scrum</li>
+                            <li>Architecture MVC optimisée</li>
+                            <li>Implémentation CRUD sécurisée</li>
+                            <li>Tests automatisés complets</li>
+                        </ul>
+                    </div>
+                    <div class="competence-center">
+                        <img src="./resources/img_c5_1.png" alt="Terminal" class="project-preview"/>
+                        <img src="./resources/img_c5_2.png" alt="Terminal" class="project-preview"/>
+                    </div>
+                    <div class="competence-right">
+                        <h4>Montée en compétences</h4>
+                        <ul>
+                            <li>Expertise Laravel et ses composants</li>
+                            <li>Maîtrise ORM Eloquent</li>
+                            <li>Sécurité avec Breeze</li>
+                            <li>Tests unitaires et d'intégration</li>
+                        </ul>
+                        <h4>Difficultés surmontées</h4>
+                        <ul>
+                            <li>Implémentation ORM complexe</li>
+                            <li>Gestion des routes avancées</li>
+                            <li>Compatibilité multi-versions</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="competence-right">
-                    <h4>Montée en compétences</h4>
-                    <ul>
-                        <li>Maîtrise des méthodes Agiles</li>
-                        <li>Expertise Git avancée</li>
-                        <li>Communication technique efficace</li>
-                        <li>Gestion de conflits constructive</li>
-                    </ul>
-
-                    <h4>Difficultés surmontées</h4>
-                    <ul>
-                        <li>Optimisation de la communication</li>
-                        <li>Équilibrage des charges de travail</li>
-                        <li>Gestion des divergences techniques</li>
-                    </ul>
+            </div>
+            <div class="competence-card">
+                <h3>Compétence 6 : Collaborer au sein d'une équipe informatique</h3>
+                <div class="competence-content">
+                    <div class="competence-left">
+                        <h4>Objet du travail</h4>
+                        <p>Développement itératif d'une application en équipe, avec focus sur la collaboration et la qualité du code</p>
+                        <h4>Méthodologie</h4>
+                        <ul>
+                            <li>Organisation de réunions efficaces</li>
+                            <li>Utilisation avancée de Miro</li>
+                            <li>Gestion de backlog produit</li>
+                            <li>Revues de code régulières</li>
+                        </ul>
+                    </div>
+                    <div class="competence-center">
+                        <img src="./resources/img_c6.png" alt="Terminal" class="project-preview"/>
+                    </div>
+                    <div class="competence-right">
+                        <h4>Montée en compétences</h4>
+                        <ul>
+                            <li>Maîtrise des méthodes Agiles</li>
+                            <li>Expertise Git avancée</li>
+                            <li>Communication technique efficace</li>
+                            <li>Gestion de conflits constructive</li>
+                        </ul>
+                        <h4>Difficultés surmontées</h4>
+                        <ul>
+                            <li>Optimisation de la communication</li>
+                            <li>Équilibrage des charges de travail</li>
+                            <li>Gestion des divergences techniques</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -607,10 +819,10 @@
 </section>
 
 <script>
+    // Three.js pour l'arrière-plan animé
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x000000, 0);
     document.getElementById('canvas-container').appendChild(renderer.domElement);
@@ -618,17 +830,14 @@
     const particlesGeometry = new THREE.BufferGeometry();
     const particlesCount = 5000;
     const posArray = new Float32Array(particlesCount * 3);
-
     for(let i = 0; i < particlesCount * 3; i++) {
         posArray[i] = (Math.random() - 0.5) * 5;
     }
-
     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
     const particlesMaterial = new THREE.PointsMaterial({
         size: 0.005,
         color: 0x64ffda
     });
-
     const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particlesMesh);
     camera.position.z = 2;
@@ -639,7 +848,6 @@
         particlesMesh.rotation.y += 0.0005;
         renderer.render(scene, camera);
     }
-
     animate();
 
     window.addEventListener('resize', () => {
@@ -653,6 +861,22 @@
         const y = -(event.clientY / window.innerHeight) * 2 + 1;
         particlesMesh.rotation.x += y * 0.0001;
         particlesMesh.rotation.y += x * 0.0001;
+    });
+
+    // Gestion des onglets dans la section Compétences
+    const tabLinks = document.querySelectorAll('.tab-link');
+    tabLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            tabLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            const tabId = link.getAttribute('data-tab');
+            document.getElementById(tabId).style.display = 'block';
+            link.classList.add('active');
+        });
     });
 </script>
 </body>
