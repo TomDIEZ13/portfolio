@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio tomdiez.fr</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
@@ -68,6 +69,69 @@
             color: #64ffda;
         }
 
+        /* Burger Menu */
+        .burger-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .burger-bar {
+            width: 30px;
+            height: 3px;
+            background-color: #ccd6f6;
+            margin: 4px 0;
+            transition: 0.4s;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            height: 100vh;
+            width: 70%;
+            background: rgba(17, 34, 64, 0.98);
+            padding-top: 70px;
+            transition: 0.5s ease;
+            z-index: 99;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu ul {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu a {
+            color: #ccd6f6;
+            font-size: 1.2rem;
+            text-decoration: none;
+            padding: 1rem;
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Transformations pour l'animation du burger */
+        .burger-menu.active .burger-bar:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .burger-menu.active .burger-bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger-menu.active .burger-bar:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
         #canvas-container {
             position: fixed;
             top: 0;
@@ -81,6 +145,103 @@
             min-height: 100vh;
             padding: 100px 10%;
             position: relative;
+        }
+
+        /* Styles pour la section d'accueil */
+        #accueil {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        .accueil-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
+            gap: 4rem;
+        }
+
+        .profile-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .profile-photo {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(100, 255, 218, 0.3);
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-bg {
+            position: absolute;
+            width: 270px;
+            height: 270px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #64ffda, transparent);
+            z-index: 0;
+            opacity: 0.4;
+            animation: pulse-bg 3s infinite;
+        }
+
+        @keyframes pulse-bg {
+            0% {
+                transform: scale(1);
+                opacity: 0.4;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.6;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.4;
+            }
+        }
+
+        .intro-text {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .greeting {
+            color: #64ffda;
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: -1rem;
+        }
+
+        .name-headline {
+            color: #ccd6f6;
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .role-headline {
+            color: #8892b0;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-top: -0.5rem;
+        }
+
+        .intro-description {
+            max-width: 600px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-top: 1rem;
         }
 
         .section-title {
@@ -313,6 +474,17 @@
             .section-title {
                 font-size: 2rem;
             }
+            .accueil-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+            .name-headline {
+                font-size: 2.8rem;
+            }
+            .role-headline {
+                font-size: 2rem;
+            }
         }
 
         @media (max-width: 992px) {
@@ -326,13 +498,18 @@
                 grid-template-columns: 1fr;
                 gap: 1rem;
             }
+            .nav-links {
+                display: none;
+            }
+            .burger-menu {
+                display: flex;
+            }
+            .mobile-menu {
+                display: block;
+            }
         }
 
         @media (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-                gap: 1rem;
-            }
             .section-title {
                 font-size: 1.8rem;
             }
@@ -350,6 +527,18 @@
                 width: 100% !important;
                 height: auto !important;
             }
+            .name-headline {
+                font-size: 2.2rem;
+            }
+            .role-headline {
+                font-size: 1.6rem;
+            }
+            .greeting {
+                font-size: 1rem;
+            }
+            .intro-description {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -358,19 +547,143 @@
 
 <nav>
     <a href="#" class="name-logo">Tom DIEZ</a>
-    <ul>
+    <ul class="nav-links">
+        <li><a href="#accueil">Accueil</a></li>
         <li><a href="#particularites">Particularités</a></li>
         <li><a href="#projet-pro">Projet Pro</a></li>
         <li><a href="#competences">Compétences</a></li>
         <li><a href="#contact">Contact</a></li>
     </ul>
+    <div class="burger-menu">
+        <div class="burger-bar"></div>
+        <div class="burger-bar"></div>
+        <div class="burger-bar"></div>
+    </div>
 </nav>
+
+<div class="mobile-menu">
+    <ul>
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#particularites">Particularités</a></li>
+        <li><a href="#projet-pro">Projet Pro</a></li>
+        <li><a href="#competences">Compétences</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</div>
+
+<!-- Section Accueil -->
+<section id="accueil">
+    <div class="accueil-content">
+        <div class="profile-container">
+            <div class="profile-bg"></div>
+            <img src="./resources/moi.png" alt="Tom Diez" class="profile-photo">
+        </div>
+        <div class="intro-text">
+            <p class="greeting">Il était une fois</p>
+            <h1 class="name-headline">Tom Diez</h1>
+            <h2 class="role-headline">Étudiant en Informatique.</h2>
+            <p class="intro-description">
+                Je suis actuellement en <strong>BUT 3 Informatique</strong> à l'IUT d'Arles, spécialisé dans <span id="typing-text"></span><span class="cursor">|</span>
+            </p>
+
+            <!-- CSS pour l'effet de machine à écrire -->
+            <style>
+                .intro-description {
+                    min-height: 3em; /* Garantir une hauteur minimale pour éviter les sauts de mise en page */
+                }
+
+                .cursor {
+                    color: #64ffda;
+                    font-weight: bold;
+                    animation: blink 0.75s infinite;
+                }
+
+                @keyframes blink {
+                    0%, 100% { opacity: 1; }
+                    50% { opacity: 0; }
+                }
+
+                /* Pour mobile, ajuster la taille du texte si nécessaire */
+                @media (max-width: 768px) {
+                    #typing-text, .cursor {
+                        font-size: 0.9rem;
+                    }
+                }
+            </style>
+
+            <!-- JavaScript pour l'effet de machine à écrire -->
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const typingElement = document.getElementById('typing-text');
+                    const phrases = [
+                        "<strong>la conception d'applications.</strong>",
+                        "<strong>le développement d'applications.</strong>",
+                        "<strong>la validation d'applications.</strong>"
+                    ];
+
+                    let phraseIndex = 0;
+                    let charIndex = 0;
+                    let isDeleting = false;
+                    let isPaused = false;
+
+                    function typeEffect() {
+                        const currentPhrase = phrases[phraseIndex];
+
+                        // Pause à la fin de l'écriture avant de commencer à effacer
+                        if (!isDeleting && charIndex === currentPhrase.length) {
+                            isPaused = true;
+                            setTimeout(() => {
+                                isPaused = false;
+                                isDeleting = true;
+                                typeLoop();
+                            }, 800); // Pause de 0.8 secondes quand tout le texte est affiché
+                            return;
+                        }
+
+                        // Pause à la fin de l'effacement avant de commencer une nouvelle phrase
+                        if (isDeleting && charIndex === 0) {
+                            isPaused = true;
+                            setTimeout(() => {
+                                isPaused = false;
+                                isDeleting = false;
+                                phraseIndex = (phraseIndex + 1) % phrases.length;
+                                typeLoop();
+                            }, 500); // Pause de 0.5 secondes avant de commencer une nouvelle phrase
+                            return;
+                        }
+
+                        // Gérer l'écriture et l'effacement
+                        if (!isDeleting) {
+                            typingElement.innerHTML = currentPhrase.substring(0, ++charIndex);
+                        } else {
+                            typingElement.innerHTML = currentPhrase.substring(0, --charIndex);
+                        }
+
+                        // Vitesse variable selon l'action
+                        const typeSpeed = isDeleting ? 15 : 35; // Plus rapide pour effacer, plus lent pour écrire
+
+                        if (!isPaused) {
+                            setTimeout(typeLoop, typeSpeed);
+                        }
+                    }
+
+                    function typeLoop() {
+                        requestAnimationFrame(typeEffect);
+                    }
+
+                    // Lancer l'effet
+                    typeLoop();
+                });
+            </script>
+        </div>
+    </div>
+</section>
 
 <section id="particularites">
     <h2 class="section-title">Particularités</h2>
     <div class="grid-container">
         <div class="feature-card">
-            <h3>Investissement</h3>
+            <h3>Autodidacte</h3>
             <p>Sérieux investissement dans mes études accompagné d'un apprentissage autodidacte constant et d'une veille technologique active.</p>
         </div>
         <div class="feature-card">
@@ -378,7 +691,7 @@
             <p>Pensée critique et logique mathématique affinées lors de mon année en Maths Sup, me permettant d'aborder les problèmes complexes de manière structurée.</p>
         </div>
         <div class="feature-card">
-            <h3>Compétences</h3>
+            <h3>Formation Continue</h3>
             <p>Ma formation en BUT Informatique m'a apporté de solides compétences techniques, renforcées par une pratique régulière et des projets personnels enrichissants.</p>
         </div>
         <div class="feature-card">
@@ -392,19 +705,19 @@
     <h2 class="section-title">Projet Professionnel</h2>
     <div class="grid-container">
         <div class="feature-card">
-            <h3>Exploration et Découverte</h3>
-            <p>Actuellement en BUT3 à l'IUT d'Arles dans le parcours « Réalisation d'applications : conception, développement, validation », je poursuis mes études avec une ouverture d’esprit et une curiosité continue.</p>
+            <h3>Exploration et découverte</h3>
+            <p>Actuellement en BUT3 à l'IUT d'Arles dans le parcours Réalisation d'applications : conception, développement, validation, je poursuis mes études avec une ouverture d'esprit et une curiosité continue.</p>
         </div>
         <div class="feature-card">
-            <h3>Cibler Mes Intérêts</h3>
+            <h3>Cibler mes intérêts</h3>
             <p>Certains domaines comme la modélisation mathématique et l'algorithmie se démarquent particulièrement, nourrissant mon envie d'approfondir mes compétences.</p>
         </div>
         <div class="feature-card">
-            <h3>Affiner Mon Chemin</h3>
-            <p>En poursuivant mes études, je m'engage plus profondément dans les domaines qui m'ont captivé.</p>
+            <h3>Affiner mon chemin</h3>
+            <p>En poursuivant mes études, je m'engage pleinement dans les domaines qui m'ont captivé.</p>
         </div>
         <div class="feature-card">
-            <h3>Vers un Futur Ciblé</h3>
+            <h3>Vers un futur ciblé</h3>
             <p>Cette focalisation sur mes domaines de prédilection me permettra de contribuer de manière significative et innovante à ma future carrière.</p>
         </div>
     </div>
@@ -421,7 +734,7 @@
     <div id="but3-content" class="tab-content">
         <div class="competences-container">
             <div class="competence-card">
-                <h3>Compétence 1 : Réaliser un développement d’application</h3>
+                <h3>Compétence 1 : Réaliser un développement d'application</h3>
                 <div class="competence-content">
                     <div class="competence-left">
                         <h4>Objet du travail</h4>
@@ -430,11 +743,11 @@
                         </p>
                         <h4>Méthodologie</h4>
                         <ul>
-                            <li>Analyse des besoins et rédaction des spécifications techniques</li>
-                            <li>Conception d'une architecture modulaire (DAO, services, controllers) facilitant la maintenance</li>
-                            <li>Intégration d'animations interactives avec Three.js</li>
-                            <li>Mise en place d'un système de paiement sécurisé via Stripe</li>
-                            <li>Implémentation de la reconnaissance faciale pour l'authentification</li>
+                            <li>Analyse des besoins et rédaction des spécifications techniques;</li>
+                            <li>Conception d'une architecture modulaire (DAO, services, controllers) facilitant la maintenance;</li>
+                            <li>Intégration d'animations interactives avec Three.js;</li>
+                            <li>Mise en place d'un système de paiement sécurisé via Stripe;</li>
+                            <li>Implémentation de la reconnaissance faciale pour l'authentification.</li>
                         </ul>
                     </div>
                     <div class="video-container">
@@ -487,7 +800,7 @@
                         video.style.width = '100%';
                         video.style.height = '100%';
 
-                        // Écouteur d’événement pour le changement de mode plein écran
+                        // Écouteur d'événement pour le changement de mode plein écran
                         function handleFullscreenChange() {
                             // Si la vidéo est en plein écran
                             if (document.fullscreenElement === video ||
@@ -529,16 +842,16 @@
                     <div class="competence-right">
                         <h4>Montée en compétences</h4>
                         <ul>
-                            <li>Maîtrise avancée du framework Angular et des API RESTful</li>
-                            <li>Approfondissement des techniques d'intégration de solutions de paiement (Stripe)</li>
-                            <li>Découverte et mise en pratique de la blockchain et de la reconnaissance faciale</li>
-                            <li>Gestion de l'interopérabilité entre plusieurs technologies</li>
+                            <li>Maîtrise avancée du framework Angular et des API RESTful;</li>
+                            <li>Approfondissement des techniques d'intégration de solutions de paiement (Stripe);</li>
+                            <li>Découverte et mise en pratique de la blockchain et de la reconnaissance faciale;</li>
+                            <li>Gestion de l'interopérabilité entre plusieurs technologies.</li>
                         </ul>
                         <h4>Difficultés surmontées</h4>
                         <ul>
-                            <li>Intégration de multiples technologies dans un seul projet</li>
-                            <li>Optimisation de la communication entre le frontend et le backend</li>
-                            <li>Gestion des enjeux de sécurité liés aux transactions en ligne</li>
+                            <li>Intégration de multiples technologies dans un seul projet;</li>
+                            <li>Optimisation de la communication entre le frontend et le backend;</li>
+                            <li>Gestion des enjeux de sécurité liés aux transactions en ligne.</li>
                         </ul>
                     </div>
                 </div>
@@ -553,10 +866,10 @@
                         </p>
                         <h4>Méthodologie</h4>
                         <ul>
-                            <li>Audit du code existant (vieux de 30 ans) pour identifier les goulets d'étranglement</li>
-                            <li>Application des principes SOLID et des bonnes pratiques (DAO, DTO, services)</li>
-                            <li>Refactoring pour réduire les requêtes lourdes et améliorer la maintenabilité</li>
-                            <li>Mise en place de tests garantissant la stabilité et la performance</li>
+                            <li>Audit du code existant (vieux de 30 ans) pour identifier les goulets d'étranglement;</li>
+                            <li>Application des principes SOLID et des bonnes pratiques (DAO, DTO, services);</li>
+                            <li>Refactoring pour réduire les requêtes lourdes et améliorer la maintenabilité;</li>
+                            <li>Mise en place de tests garantissant la stabilité et la performance.</li>
                         </ul>
                     </div>
                     <div class="competence-center">
@@ -566,15 +879,15 @@
                     <div class="competence-right">
                         <h4>Montée en compétences</h4>
                         <ul>
-                            <li>Renforcement des compétences en optimisation et refactoring de code backend</li>
-                            <li>Application concrète des principes SOLID et des méthodes de structuration de code</li>
-                            <li>Amélioration de l'efficacité des requêtes et des performances globales</li>
+                            <li>Renforcement des compétences en optimisation et refactoring de code backend;</li>
+                            <li>Application concrète des principes SOLID et des méthodes de structuration de code;</li>
+                            <li>Amélioration de l'efficacité des requêtes et des performances globales.</li>
                         </ul>
                         <h4>Difficultés surmontées</h4>
                         <ul>
-                            <li>Transformation d'un code mal conçu en une architecture moderne et optimisée</li>
-                            <li>Réduction des temps de réponse par l'optimisation des accès aux données</li>
-                            <li>Mise en place de solutions de sécurité robustes sans compromettre les performances</li>
+                            <li>Transformation d'un code mal conçu en une architecture moderne et optimisée;</li>
+                            <li>Réduction des temps de réponse par l'optimisation des accès aux données;</li>
+                            <li>Mise en place de solutions de sécurité robustes sans compromettre les performances.</li>
                         </ul>
                     </div>
                 </div>
@@ -593,10 +906,10 @@
                         <p>Développement d'une application pour smartphone à destination des parents d'élèves de l'école maternelle « Le petit Prince ».</p>
                         <h4>Méthodologie</h4>
                         <ul>
-                            <li>Analyse approfondie des besoins utilisateurs et spécifications techniques</li>
-                            <li>Conception d'une architecture modulaire basée sur les composants</li>
-                            <li>Développement d'une interface intuitive et responsive</li>
-                            <li>Implémentation des fonctionnalités essentielles et avancées</li>
+                            <li>Analyse approfondie des besoins utilisateurs et spécifications techniques;</li>
+                            <li>Conception d'une architecture modulaire basée sur les composants;</li>
+                            <li>Développement d'une interface intuitive et responsive;</li>
+                            <li>Implémentation des fonctionnalités essentielles et avancées.</li>
                         </ul>
                     </div>
                     <div class="competence-center" style="height: 621px; width: 300px; position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);">
@@ -608,16 +921,16 @@
                     <div class="competence-right">
                         <h4>Montée en compétences</h4>
                         <ul>
-                            <li>Maîtrise approfondie du framework Angular</li>
-                            <li>Expertise dans le développement mobile avec Ionic</li>
-                            <li>Utilisation avancée d'Android Studio</li>
-                            <li>Déploiement d'applications mobiles</li>
-                            <li>Renforcement des concepts de composants et vues depuis React</li>
+                            <li>Maîtrise approfondie du framework Angular;</li>
+                            <li>Expertise dans le développement mobile avec Ionic;</li>
+                            <li>Utilisation avancée d'Android Studio;</li>
+                            <li>Déploiement d'applications mobiles;</li>
+                            <li>Renforcement des concepts de composants et vues depuis React.</li>
                         </ul>
                         <h4>Difficultés surmontées</h4>
                         <ul>
-                            <li>Apprentissage intensif des nouvelles technologies</li>
-                            <li>Gestion des spécificités du déploiement mobile</li>
+                            <li>Apprentissage intensif des nouvelles technologies;</li>
+                            <li>Gestion des spécificités du déploiement mobile.</li>
                         </ul>
                     </div>
                 </div>
@@ -630,9 +943,9 @@
                         <p>Optimisation axée sur la sécurité d'une application existante, avec focus sur la protection des données et la performance.</p>
                         <h4>Méthodologie</h4>
                         <ul>
-                            <li>Analyse approfondie des vulnérabilités critiques</li>
-                            <li>Implémentation de mesures de sécurité robustes</li>
-                            <li>Tests de pénétration et correction des failles</li>
+                            <li>Analyse approfondie des vulnérabilités critiques;</li>
+                            <li>Implémentation de mesures de sécurité robustes;</li>
+                            <li>Tests de pénétration et correction des failles.</li>
                         </ul>
                     </div>
                     <div class="competence-center">
@@ -642,15 +955,15 @@
                     <div class="competence-right">
                         <h4>Montée en compétences</h4>
                         <ul>
-                            <li>Maîtrise du JavaScript côté serveur</li>
-                            <li>Expertise en sécurité multicouche: BDD, Réseau, Code</li>
-                            <li>Implémentation de bonnes pratiques de sécurité</li>
+                            <li>Maîtrise du JavaScript côté serveur;</li>
+                            <li>Expertise en sécurité multicouche: BDD, Réseau, Code;</li>
+                            <li>Implémentation de bonnes pratiques de sécurité.</li>
                         </ul>
                         <h4>Difficultés surmontées</h4>
                         <ul>
-                            <li>Maîtrise des concepts avancés de sécurité</li>
-                            <li>Adaptation aux meilleures pratiques évolutives</li>
-                            <li>Optimisation des performances post-sécurisation</li>
+                            <li>Maîtrise des concepts avancés de sécurité;</li>
+                            <li>Adaptation aux meilleures pratiques évolutives;</li>
+                            <li>Optimisation des performances post-sécurisation.</li>
                         </ul>
                     </div>
                 </div>
@@ -660,13 +973,13 @@
                 <div class="competence-content">
                     <div class="competence-left">
                         <h4>Objet du travail</h4>
-                        <p>Développement d'une application client/serveur collaborative pour l'édition de documents en temps réel</p>
+                        <p>Développement d'une application client/serveur collaborative pour l'édition de documents en temps réel.</p>
                         <h4>Méthodologie</h4>
                         <ul>
-                            <li>Analyse des besoins collaboratifs</li>
-                            <li>Design d'architecture distribuée</li>
-                            <li>Implémentation de synchronisation en temps réel</li>
-                            <li>Tests de charge et optimisation</li>
+                            <li>Analyse des besoins collaboratifs;</li>
+                            <li>Design d'architecture distribuée;</li>
+                            <li>Implémentation de synchronisation en temps réel;</li>
+                            <li>Tests de charge et optimisation.</li>
                         </ul>
                     </div>
                     <div class="competence-center">
@@ -677,16 +990,16 @@
                     <div class="competence-right">
                         <h4>Montée en compétences</h4>
                         <ul>
-                            <li>Expertise avancée en C++</li>
-                            <li>Maîtrise de la programmation concurrente</li>
-                            <li>Gestion efficace des ressources système</li>
-                            <li>Optimisation des performances réseau</li>
+                            <li>Expertise avancée en C++;</li>
+                            <li>Maîtrise de la programmation concurrente;</li>
+                            <li>Gestion efficace des ressources système;</li>
+                            <li>Optimisation des performances réseau.</li>
                         </ul>
                         <h4>Difficultés surmontées</h4>
                         <ul>
-                            <li>Résolution des conflits de concurrence</li>
-                            <li>Optimisation des accès fichiers multiples</li>
-                            <li>Gestion de la latence réseau</li>
+                            <li>Résolution des conflits de concurrence;</li>
+                            <li>Optimisation des accès fichiers multiples;</li>
+                            <li>Gestion de la latence réseau.</li>
                         </ul>
                     </div>
                 </div>
@@ -696,13 +1009,13 @@
                 <div class="competence-content">
                     <div class="competence-left">
                         <h4>Objet du travail</h4>
-                        <p>Conception et développement d'une application client riche intégrant des API externes avec gestion avancée des données</p>
+                        <p>Conception et développement d'une application client riche intégrant des API externes avec gestion avancée des données.</p>
                         <h4>Méthodologie</h4>
                         <ul>
-                            <li>Architecture orientée services</li>
-                            <li>Implémentation POO avancée</li>
-                            <li>Configuration Webpack optimisée</li>
-                            <li>Gestion de cache intelligente</li>
+                            <li>Architecture orientée services;</li>
+                            <li>Implémentation POO avancée;</li>
+                            <li>Configuration Webpack optimisée;</li>
+                            <li>Gestion de cache intelligente.</li>
                         </ul>
                     </div>
                     <div class="competence-center">
@@ -712,16 +1025,16 @@
                     <div class="competence-right">
                         <h4>Montée en compétences</h4>
                         <ul>
-                            <li>Maîtrise de Webpack et ses optimisations</li>
-                            <li>Intégration avancée d'APIs</li>
-                            <li>POO JavaScript approfondie</li>
-                            <li>Gestion efficace des états applicatifs</li>
+                            <li>Maîtrise de Webpack et ses optimisations;</li>
+                            <li>Intégration avancée d'APIs;</li>
+                            <li>POO JavaScript approfondie;</li>
+                            <li>Gestion efficace des états applicatifs.</li>
                         </ul>
                         <h4>Difficultés surmontées</h4>
                         <ul>
-                            <li>Configuration Webpack complexe</li>
-                            <li>Gestion des dépendances circulaires</li>
-                            <li>Optimisation des requêtes API</li>
+                            <li>Configuration Webpack complexe;</li>
+                            <li>Gestion des dépendances circulaires;</li>
+                            <li>Optimisation des requêtes API.</li>
                         </ul>
                     </div>
                 </div>
@@ -731,13 +1044,13 @@
                 <div class="competence-content">
                     <div class="competence-left">
                         <h4>Objet du travail</h4>
-                        <p>Développement d'une plateforme e-commerce "BookStore" avec Laravel, intégrant des fonctionnalités avancées de gestion</p>
+                        <p>Développement d'une plateforme e-commerce "BookStore" avec Laravel, intégrant des fonctionnalités avancées de gestion.</p>
                         <h4>Méthodologie</h4>
                         <ul>
-                            <li>Gestion de projet Agile/Scrum</li>
-                            <li>Architecture MVC optimisée</li>
-                            <li>Implémentation CRUD sécurisée</li>
-                            <li>Tests automatisés complets</li>
+                            <li>Gestion de projet Agile/Scrum;</li>
+                            <li>Architecture MVC optimisée;</li>
+                            <li>Implémentation CRUD sécurisée;</li>
+                            <li>Tests automatisés complets.</li>
                         </ul>
                     </div>
                     <div class="competence-center">
@@ -747,16 +1060,16 @@
                     <div class="competence-right">
                         <h4>Montée en compétences</h4>
                         <ul>
-                            <li>Expertise Laravel et ses composants</li>
-                            <li>Maîtrise ORM Eloquent</li>
-                            <li>Sécurité avec Breeze</li>
-                            <li>Tests unitaires et d'intégration</li>
+                            <li>Expertise Laravel et ses composants;</li>
+                            <li>Maîtrise ORM Eloquent;</li>
+                            <li>Sécurité avec Breeze;</li>
+                            <li>Tests unitaires et d'intégration.</li>
                         </ul>
                         <h4>Difficultés surmontées</h4>
                         <ul>
-                            <li>Implémentation ORM complexe</li>
-                            <li>Gestion des routes avancées</li>
-                            <li>Compatibilité multi-versions</li>
+                            <li>Implémentation ORM complexe;</li>
+                            <li>Gestion des routes avancées;</li>
+                            <li>Compatibilité multi-versions.</li>
                         </ul>
                     </div>
                 </div>
@@ -766,13 +1079,13 @@
                 <div class="competence-content">
                     <div class="competence-left">
                         <h4>Objet du travail</h4>
-                        <p>Développement itératif d'une application en équipe, avec focus sur la collaboration et la qualité du code</p>
+                        <p>Développement itératif d'une application en équipe, avec focus sur la collaboration et la qualité du code.</p>
                         <h4>Méthodologie</h4>
                         <ul>
-                            <li>Organisation de réunions efficaces</li>
-                            <li>Utilisation avancée de Miro</li>
-                            <li>Gestion de backlog produit</li>
-                            <li>Revues de code régulières</li>
+                            <li>Organisation de réunions efficaces;</li>
+                            <li>Utilisation avancée de Miro;</li>
+                            <li>Gestion de backlog produit;</li>
+                            <li>Revues de code régulières.</li>
                         </ul>
                     </div>
                     <div class="competence-center">
@@ -781,16 +1094,16 @@
                     <div class="competence-right">
                         <h4>Montée en compétences</h4>
                         <ul>
-                            <li>Maîtrise des méthodes Agiles</li>
-                            <li>Expertise Git avancée</li>
-                            <li>Communication technique efficace</li>
-                            <li>Gestion de conflits constructive</li>
+                            <li>Maîtrise des méthodes Agiles;</li>
+                            <li>Expertise Git avancée;</li>
+                            <li>Communication technique efficace;</li>
+                            <li>Gestion de conflits constructive.</li>
                         </ul>
                         <h4>Difficultés surmontées</h4>
                         <ul>
-                            <li>Optimisation de la communication</li>
-                            <li>Équilibrage des charges de travail</li>
-                            <li>Gestion des divergences techniques</li>
+                            <li>Optimisation de la communication;</li>
+                            <li>Équilibrage des charges de travail;</li>
+                            <li>Gestion des divergences techniques.</li>
                         </ul>
                     </div>
                 </div>
@@ -877,6 +1190,32 @@
             document.getElementById(tabId).style.display = 'block';
             link.classList.add('active');
         });
+    });
+
+    // Gestion du menu burger
+    const burgerMenu = document.querySelector('.burger-menu');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-menu a');
+
+    burgerMenu.addEventListener('click', () => {
+        burgerMenu.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+    });
+
+    // Fermer le menu mobile lorsqu'un lien est cliqué
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            burgerMenu.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        });
+    });
+
+    // Fermer le menu mobile en cliquant à l'extérieur
+    document.addEventListener('click', (event) => {
+        if (!burgerMenu.contains(event.target) && !mobileMenu.contains(event.target) && mobileMenu.classList.contains('active')) {
+            burgerMenu.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        }
     });
 </script>
 </body>
